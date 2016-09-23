@@ -5,6 +5,7 @@ import static org.lwjgl.glfw.GLFW.*; // Base
 import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.GL;
+import org.w3c.dom.Text;
 
 public class Main {
 
@@ -31,6 +32,9 @@ public class Main {
         // Create the context wit openGL
         GL.createCapabilities();
 
+        // After capabilities create texture
+        Texture tex = new Texture("./res/texture.png");
+
         float x = 0;
         float y = 0;
 
@@ -48,27 +52,28 @@ public class Main {
                 x += 0.001f;
             }
 
-            if (glfwGetMouseButton(win, GLFW_MOUSE_BUTTON_1) == GL_TRUE){
+            if (glfwGetMouseButton(win, GLFW_MOUSE_BUTTON_1) == GL_TRUE) {
                 y += 0.001f;
             }
 
             // Clear the context, set every pixel to black
             glClear(GL_COLOR_BUFFER_BIT);
 
+            tex.bind();
+
             // Let's draw a quad
             glBegin(GL_QUADS);
 
-            glColor4f(1, 0, 0, 0);
-            glVertex2f(-0.5f+x, 0.5f+y);
 
-            glColor4f(0, 1, 0, 0);
-            glVertex2f(0.5f+x, 0.5f+y);
+            glTexCoord2f(1, 1);
+            glVertex2f(-0.5f + x, 0.5f + y);
 
-            glColor4f(0, 0, 1, 0);
-            glVertex2f(0.5f+x, -0.5f+y);
+            glTexCoord2f(0, 1);
+            glVertex2f(0.5f + x, 0.5f + y);
 
-            glColor4f(1, 1, 1, 0);
-            glVertex2f(-0.5f+x, -0.5f+y);
+            glTexCoord2f(0, 0);
+            glVertex2f(0.5f + x, -0.5f + y);
+            glVertex2f(-0.5f + x, -0.5f + y);
 
             glEnd();
 
