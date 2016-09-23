@@ -31,11 +31,26 @@ public class Main {
         // Create the context wit openGL
         GL.createCapabilities();
 
+        float x = 0;
+        float y = 0;
+
         // Allows the window to stay open
         while (!glfwWindowShouldClose(win)) {
 
             // Process all pending events
             glfwPollEvents();
+
+            if (glfwGetKey(win, GLFW_KEY_ESCAPE) == GL_TRUE) {
+                glfwSetWindowShouldClose(win, true);
+            }
+
+            if (glfwGetKey(win, GLFW_KEY_A) == GL_TRUE) {
+                x += 0.001f;
+            }
+
+            if (glfwGetMouseButton(win, GLFW_MOUSE_BUTTON_1) == GL_TRUE){
+                y += 0.001f;
+            }
 
             // Clear the context, set every pixel to black
             glClear(GL_COLOR_BUFFER_BIT);
@@ -43,17 +58,17 @@ public class Main {
             // Let's draw a quad
             glBegin(GL_QUADS);
 
-            glColor4f(1,0,0,0);
-            glVertex2f(-0.5f, 0.5f);
+            glColor4f(1, 0, 0, 0);
+            glVertex2f(-0.5f+x, 0.5f+y);
 
-            glColor4f(0,1,0,0);
-            glVertex2f(0.5f, 0.5f);
+            glColor4f(0, 1, 0, 0);
+            glVertex2f(0.5f+x, 0.5f+y);
 
-            glColor4f(0,0,1,0);
-            glVertex2f(0.5f, -0.5f);
+            glColor4f(0, 0, 1, 0);
+            glVertex2f(0.5f+x, -0.5f+y);
 
-            glColor4f(1,1,1,0);
-            glVertex2f(-0.5f, -0.5f);
+            glColor4f(1, 1, 1, 0);
+            glVertex2f(-0.5f+x, -0.5f+y);
 
             glEnd();
 

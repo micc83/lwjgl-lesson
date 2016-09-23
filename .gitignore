@@ -9,3 +9,4 @@ lwjgl
 /build
 /captures
 /out
+*.log
